@@ -13,29 +13,36 @@ export const RecaptchaButton = ({
   disabled
 }: any) => {
   const [validating, setValidating] = useState(false)
-  const { executeRecaptcha } = useGoogleReCaptcha();
+  // const { executeRecaptcha } = useGoogleReCaptcha();
 
   const handleReCaptchaVerify = useCallback(async () => {
-    if (!executeRecaptcha) {
-      console.debug('Execute recaptcha not yet available');
-      return;
-    }
+    // if (!executeRecaptcha) {
+    //   console.debug('Execute recaptcha not yet available');
+    //   return;
+    // }
     setValidating(true)
 
-    const token = await executeRecaptcha(actionName);
-    const { data }: any = await axios.post(`/api/validate-captcha`, { token });
-    if (data.success) {
-      setValidating(false)
-      await onClick()
-    }
-    else toast.error("You has been flagged as a bot!")
+    // const token = await executeRecaptcha(actionName);
+    // const { data }: any = await axios.post(`/api/validate-captcha`, { token });
+    // if (data.success) {
+    //   setValidating(false)
+    //   await onClick()
+    // }
+    // else toast.error("You has been flagged as a bot!")
 
     setValidating(false)
+    await onClick()
   }, []);
+
+  // return <button
+  //   type="button"
+  //   className="text-black font-bold text-lg cursor-pointer"
+  //   disabled={disabled}>{children}</button>;
 
   return <button
     type="button"
     className="text-black font-bold text-lg cursor-pointer"
     disabled={disabled}
     onClick={handleReCaptchaVerify}>{validating ? 'Validating you are not a bot...' : children}</button>;
+
 };
