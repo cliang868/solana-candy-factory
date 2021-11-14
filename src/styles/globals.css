@@ -11,13 +11,91 @@ body,
 #__next {
   background-color: white;
   height: 100%;
-  width : 100%;
+  width: 100%;
 }
 
 #icon-eye {
-  width   : 250px;
-  margin  : auto;
-  padding : 20px;
+  width: 250px;
+  margin: auto;
+  padding: 20px;
   overflow: auto;
-  color   : white;
+  color: white;
+}
+
+main {
+  font-family: "IBM Plex Mono", sans-serif;
+}
+
+h1 {
+  font-size: 1.5em;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+
+h2 {
+  font-size: 1.2em;
+}
+
+.button-wallet {
+  font-family: "IBM Plex Mono", sans-serif;
+  font-size: 0.9em;
+  background: none;
+  outline: none;
+  padding: 0.5em 2em;
+  border: 2px solid #1f1c45;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+}
+
+.button-wallet:hover {
+  background-color: #eee;
+}
+
+.title {
+  background-color: #1f1c45;
+  color: #fff;
+  display: inline-block;
+  text-transform: uppercase;
+  margin-bottom: 2em;
+}
+
+.text-container {
+  text-align: center;
+  padding-top: 3em;
+}
+
+.page-container {
+  max-width: 40em;
+  margin: auto;
+  padding-top: 5em;
+}
+
+.giraffe-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-column-gap: 1em;
+  grid-row-gap: 1em;
+}
+
+.header-img {
+  width: 3em;
+  border-radius: 50%;
+}
+
+.giraffe-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+}
+
+.small-break {
+  margin-top: 1.5em;
+  width: 100%;
+  margin-bottom: 1.5em;
+}
+
+.uppercase {
+  text-transform: uppercase;
 }

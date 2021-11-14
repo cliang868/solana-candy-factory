@@ -1,64 +1,81 @@
-import Head from 'next/head'
+import Head from "next/head";
 
 import { useState } from "react";
-import { Toaster } from 'react-hot-toast';
+import { Toaster } from "react-hot-toast";
 import { useWallet } from "@solana/wallet-adapter-react";
-import useCandyMachine from '../hooks/use-candy-machine';
-import Header from '../components/header';
-import Footer from '../components/footer';
-import useWalletBalance from '../hooks/use-wallet-balance';
-import { shortenAddress } from '../utils/candy-machine';
-import Countdown from 'react-countdown';
-import { RecaptchaButton } from '../components/recaptcha-button';
+import useCandyMachine from "../hooks/use-candy-machine";
+import Header from "../components/header";
+import Footer from "../components/footer";
+import useWalletBalance from "../hooks/use-wallet-balance";
+import { shortenAddress } from "../utils/candy-machine";
+import Countdown from "react-countdown";
+import { RecaptchaButton } from "../components/recaptcha-button";
 
 const Home = () => {
-  const [balance] = useWalletBalance()
+  const [balance] = useWalletBalance();
   const [isActive, setIsActive] = useState(false);
   const wallet = useWallet();
 
-  const { isSoldOut, mintStartDate, isMinting, onMint, onMintMultiple, nftsData } = useCandyMachine()
+  const {
+    isSoldOut,
+    mintStartDate,
+    isMinting,
+    onMint,
+    onMintMultiple,
+    nftsData,
+  } = useCandyMachine();
 
   return (
     <main className="p-5">
       <Toaster />
       <Head>
-        <title>Solana Candy Factory</title>
-        <meta name="description" content="Solana blockchain candy machine app boilerplate on top of Metaplex Candy Machine. NextJS, Tailwind, Anchor, SolanaLabs.React, dev/mainnet automation scripts." />
-        <link rel="icon" href="/favicon.ico" />
+        <title>GiraffeSol Mint</title>
+        <meta
+          name="description"
+          content="Minting site for GiraffeSol NFT on the Solana blockchain."
+        />
+        <link rel="icon" href="/giraffeicon.png" />
+        <link
+          href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:100,200,300,400,450,500,600,700,800"
+          rel="stylesheet"
+        />
       </Head>
 
       <Header />
 
-      <div className="flex flex-col justify-center items-center flex-1 space-y-3 mt-20">
-        <img
-          className="rounded-md shadow-lg"
-          src={`/candy.jpeg`}
-          height={200}
-          width={200}
-          alt="Candy Image" />
+      <div className="page-container">
+        <div className="title">
+          <h1>Mint GiraffeSol</h1>
+        </div>
+        <div className="giraffe-container">
+          <img className="giraffe-img" src={`/giraffe1.png`} />
+          <img className="giraffe-img" src={`/giraffe2.png`} />
+          <img className="giraffe-img" src={`/giraffe3.png`} />
+          <img className="giraffe-img" src={`/giraffe4.png`} />
+        </div>
+        <div className="text-container">
+          {!wallet.connected && <h2>Please connect to your wallet above!</h2>}
 
-        <span className="text-gray-800 font-bold text-2xl cursor-default">
-          THIS IS THE BEST CANDY MACHINE EVER
-        </span>
+          {wallet.connected && (
+            <h2>
+              Address: {shortenAddress(wallet.publicKey?.toBase58() || "")}
+            </h2>
+          )}
 
-        {!wallet.connected && <span
-          className="text-gray-800 font-bold text-2xl cursor-default">
-          NOT CONNECTED, PLEASE CLICK SELECT WALLET...
-        </span>}
+          {wallet.connected && (
+            <>
+              <h2>Balance: {(balance || 0).toLocaleString()} SOL</h2>
+              <h2>
+                Available/Minted/Total: {nftsData.itemsRemaining}/
+                {nftsData.itemsRedeemed}/{nftsData.itemsAvailable}
+              </h2>
+            </>
+          )}
 
-        {wallet.connected &&
-          <p className="text-gray-800 font-bold text-lg cursor-default">Address: {shortenAddress(wallet.publicKey?.toBase58() || "")}</p>
-        }
+          <div class="small-break"></div>
+          <div class="small-break"></div>
 
-        {wallet.connected &&
-          <>
-            <p className="text-gray-800 font-bold text-lg cursor-default">Balance: {(balance || 0).toLocaleString()} SOL</p>
-            <p className="text-gray-800 font-bold text-lg cursor-default">Available/Minted/Total: {nftsData.itemsRemaining}/{nftsData.itemsRedeemed}/{nftsData.itemsAvailable}</p>
-          </>
-        }
-
-        <div className="flex flex-col justify-start items-start">
-          {wallet.connected &&
+          {wallet.connected && (
             <RecaptchaButton
               actionName="mint"
               disabled={isSoldOut || isMinting || !isActive}
@@ -66,19 +83,24 @@ const Home = () => {
             >
               {isSoldOut ? (
                 "SOLD OUT"
-              ) : isActive ?
-                <span>MINT {isMinting && 'LOADING...'}</span> :
+              ) : isActive ? (
+                <span className="button-wallet">
+                  Mint 1 GiraffeSol {isMinting && "Loading..."}
+                </span>
+              ) : (
                 <Countdown
                   date={mintStartDate}
                   onMount={({ completed }) => completed && setIsActive(true)}
                   onComplete={() => setIsActive(true)}
                   renderer={renderCounter}
                 />
-              }
+              )}
             </RecaptchaButton>
-          }
+          )}
 
-          {wallet.connected &&
+          <div class="small-break"></div>
+
+          {wallet.connected && (
             <RecaptchaButton
               actionName="mint5"
               disabled={isSoldOut || isMinting || !isActive}
@@ -86,19 +108,21 @@ const Home = () => {
             >
               {isSoldOut ? (
                 "SOLD OUT"
-              ) : isActive ?
-                <span>MINT 5 {isMinting && 'LOADING...'}</span> :
+              ) : isActive ? (
+                <span className="button-wallet">
+                  Mint 5 GiraffeSol {isMinting && "Loading..."}
+                </span>
+              ) : (
                 <Countdown
                   date={mintStartDate}
                   onMount={({ completed }) => completed && setIsActive(true)}
                   onComplete={() => setIsActive(true)}
                   renderer={renderCounter}
                 />
-              }
+              )}
             </RecaptchaButton>
-          }
+          )}
         </div>
-        <Footer />
       </div>
     </main>
   );
@@ -106,13 +130,10 @@ const Home = () => {
 
 const renderCounter = ({ days, hours, minutes, seconds }: any) => {
   return (
-    <span className="text-gray-800 font-bold text-2xl cursor-default">
+    <span className="uppercase">
       Live in {days} days, {hours} hours, {minutes} minutes, {seconds} seconds
     </span>
   );
 };
 
 export default Home;
-
-
-
