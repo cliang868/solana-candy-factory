@@ -45,7 +45,7 @@ const Home = () => {
 
       <div className="page-container">
         <div className="title">
-          <h1>Mint GiraffeSol</h1>
+          <h1>Mint GiraffeSol: 0.25 SOL</h1>
         </div>
         <div className="giraffe-container">
           <img className="giraffe-img" src={`/giraffe1.png`} />
