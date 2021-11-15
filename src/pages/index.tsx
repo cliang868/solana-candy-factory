@@ -45,7 +45,7 @@ const Home = () => {
 
       <div className="page-container">
         <div className="title">
-          <h1>Mint GiraffeSol: 0.25 SOL</h1>
+          <h1>Mint GiraffeSol</h1>
         </div>
         <div className="giraffe-container">
           <img className="giraffe-img" src={`/giraffe1.png`} />
@@ -54,40 +54,35 @@ const Home = () => {
           <img className="giraffe-img" src={`/giraffe4.png`} />
         </div>
         <div className="text-container">
-          {isSoldOut ? (
-            "SOLD OUT"
-          ) : isActive ? (
+          {!wallet.connected && <h2>Please connect to your wallet above!</h2>}
+
+          <div className="small-break"></div>
+          <div className="small-break"></div>
+
+          {wallet.connected && (
             <RecaptchaButton
               actionName="mint"
               disabled={isSoldOut || isMinting || !isActive}
               onClick={onMint}
             >
-              {!wallet.connected && (
-                <h2>Please connect to your wallet above!</h2>
-              )}
-              {wallet.connected && (
-                <>
-                  <h2>Balance: {(balance || 0).toLocaleString()} SOL</h2>
-                </>
-              )}
-
-              <div className="small-break"></div>
-              <div className="small-break"></div>
-
-              {wallet.connected && (
+              {isSoldOut ? (
+                "SOLD OUT"
+              ) : isActive ? (
                 <span className="button-wallet">
                   Mint 1 GiraffeSol {isMinting && "Loading..."}
                 </span>
+              ) : (
+                <Countdown
+                  date={mintStartDate}
+                  onMount={({ completed }) => completed && setIsActive(true)}
+                  onComplete={() => setIsActive(true)}
+                  renderer={renderCounter}
+                />
               )}
             </RecaptchaButton>
-          ) : (
-            <Countdown
-              date={mintStartDate}
-              onMount={({ completed }) => completed && setIsActive(true)}
-              onComplete={() => setIsActive(true)}
-              renderer={renderCounter}
-            />
           )}
+
+          <div class="small-break"></div>
         </div>
       </div>
     </main>

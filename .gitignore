@@ -25,5 +25,5 @@ yarn-error.log*
 
 logs/*/*.txt
 .cache
-
+nfts-sources/*
 .next
