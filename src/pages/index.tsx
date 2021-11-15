@@ -54,73 +54,39 @@ const Home = () => {
           <img className="giraffe-img" src={`/giraffe4.png`} />
         </div>
         <div className="text-container">
-          {!wallet.connected && <h2>Please connect to your wallet above!</h2>}
-
-          {wallet.connected && (
-            <h2>
-              Address: {shortenAddress(wallet.publicKey?.toBase58() || "")}
-            </h2>
-          )}
-
-          {wallet.connected && (
-            <>
-              <h2>Balance: {(balance || 0).toLocaleString()} SOL</h2>
-              <h2>
-                Available/Minted/Total: {nftsData.itemsRemaining}/
-                {nftsData.itemsRedeemed}/{nftsData.itemsAvailable}
-              </h2>
-            </>
-          )}
-
-          <div class="small-break"></div>
-          <div class="small-break"></div>
-
-          {wallet.connected && (
+          {isSoldOut ? (
+            "SOLD OUT"
+          ) : isActive ? (
             <RecaptchaButton
               actionName="mint"
               disabled={isSoldOut || isMinting || !isActive}
               onClick={onMint}
             >
-              {isSoldOut ? (
-                "SOLD OUT"
-              ) : isActive ? (
+              {!wallet.connected && (
+                <h2>Please connect to your wallet above!</h2>
+              )}
+              {wallet.connected && (
+                <>
+                  <h2>Balance: {(balance || 0).toLocaleString()} SOL</h2>
+                </>
+              )}
+
+              <div className="small-break"></div>
+              <div className="small-break"></div>
+
+              {wallet.connected && (
                 <span className="button-wallet">
                   Mint 1 GiraffeSol {isMinting && "Loading..."}
                 </span>
-              ) : (
-                <Countdown
-                  date={mintStartDate}
-                  onMount={({ completed }) => completed && setIsActive(true)}
-                  onComplete={() => setIsActive(true)}
-                  renderer={renderCounter}
-                />
               )}
             </RecaptchaButton>
-          )}
-
-          <div class="small-break"></div>
-
-          {wallet.connected && (
-            <RecaptchaButton
-              actionName="mint5"
-              disabled={isSoldOut || isMinting || !isActive}
-              onClick={() => onMintMultiple(5)}
-            >
-              {isSoldOut ? (
-                "SOLD OUT"
-              ) : isActive ? (
-                <span className="button-wallet">
-                  Mint 5 GiraffeSol {isMinting && "Loading..."}
-                </span>
-              ) : (
-                <Countdown
-                  date={mintStartDate}
-                  onMount={({ completed }) => completed && setIsActive(true)}
-                  onComplete={() => setIsActive(true)}
-                  renderer={renderCounter}
-                />
-              )}
-            </RecaptchaButton>
+          ) : (
+            <Countdown
+              date={mintStartDate}
+              onMount={({ completed }) => completed && setIsActive(true)}
+              onComplete={() => setIsActive(true)}
+              renderer={renderCounter}
+            />
           )}
         </div>
       </div>
