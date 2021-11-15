@@ -45,7 +45,7 @@ const Home = () => {
 
       <div className="page-container">
         <div className="title">
-          <h1>Mint GiraffeSol</h1>
+          <h1>Mint GiraffeSol: 0.25 SOL</h1>
         </div>
         <div className="giraffe-container">
           <img className="giraffe-img" src={`/giraffe1.png`} />
@@ -55,6 +55,11 @@ const Home = () => {
         </div>
         <div className="text-container">
           {!wallet.connected && <h2>Please connect to your wallet above!</h2>}
+          {wallet.connected && (
+                <>
+                  <h2>Balance: {(balance || 0).toLocaleString()} SOL</h2>
+                </>
+          )}
 
           <div className="small-break"></div>
           <div className="small-break"></div>
@@ -82,7 +87,7 @@ const Home = () => {
             </RecaptchaButton>
           )}
 
-          <div class="small-break"></div>
+          <div className="small-break"></div>
         </div>
       </div>
     </main>
