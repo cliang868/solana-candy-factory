@@ -13,23 +13,25 @@ const Header: React.FC = () => {
           <img className="header-img" src={`/giraffe3.png`} />
         </Link>
       </div>
-      <div className="flex space-x-5 items-center">
-        <WalletMultiButton
-          style={{
-            backgroundColor: "#fff",
-            color: "#1f1c45",
-            border: "2px solid #1f1c45",
-            fontFamily: "IBM Plex Mono",
-          }}
-        />
-        <WalletDisconnectButton
-          style={{
-            backgroundColor: "#fff",
-            color: "#1f1c45",
-            border: "2px solid #1f1c45",
-            fontFamily: "IBM Plex Mono",
-          }}
-        />
+      <div className="hide-mobile">
+        <div className="flex space-x-5 items-center">
+          <WalletMultiButton
+            style={{
+              backgroundColor: "#fff",
+              color: "#1f1c45",
+              border: "2px solid #1f1c45",
+              fontFamily: "IBM Plex Mono",
+            }}
+          />
+          <WalletDisconnectButton
+            style={{
+              backgroundColor: "#fff",
+              color: "#1f1c45",
+              border: "2px solid #1f1c45",
+              fontFamily: "IBM Plex Mono",
+            }}
+          />
+        </div>
       </div>
     </div>
   );
