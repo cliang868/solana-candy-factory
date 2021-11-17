@@ -55,7 +55,10 @@ const Home = () => {
         </div>
         <div className="text-container">
           {!wallet.connected && <h2>Please connect to your wallet above!</h2>}
-
+          {!wallet.connected && (
+            <h2 className="show-mobile">(Mint on computer)</h2>
+          )}
+          
           <div className="small-break"></div>
           <div className="small-break"></div>
 
