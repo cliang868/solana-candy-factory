@@ -55,14 +55,6 @@ const Home = () => {
         </div>
         <div className="text-container">
           {!wallet.connected && <h2>Please connect to your wallet above!</h2>}
-          {!wallet.connected && (
-            <br /><h2 className="show-mobile">(View on computer)</h2>
-          )}
-          {wallet.connected && (
-            <>
-              <h2>Balance: {(balance || 0).toLocaleString()} SOL</h2>
-            </>
-          )}
 
           <div className="small-break"></div>
           <div className="small-break"></div>
